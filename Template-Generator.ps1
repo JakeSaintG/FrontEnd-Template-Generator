@@ -1,12 +1,4 @@
-﻿function GenerateTemplate {
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory=false)] [string]$Name,
-        [Parameter(Mandatory=$true)] [string]$Folder
-    )
-}
-
-$root = "C:\Program Files";
+﻿$root = "C:\Program Files";
 $templateLocation = "$root\CodeLouFrontEndTemplate" #change this to $boilerplateLocation
 $displayBoilerplateInstructions = $false
 
@@ -155,19 +147,8 @@ if (!(Test-Path -Path "$templateLocation\js")) {
     Set-Content -Path $templateLocation\js\app.js -Value $JSFileContents;
 };
 
-
-Write-Host "=[INFO]====================================================================================================="
-Write-Host "Copying Boilerplate files found in: $templateLocation";
-
-
-$folderName = "FrontEndTemplate$(Get-Date -format "MM-dd_HHmm")"
-
-New-Item -Path $PSScriptRoot -Name $folderName -ItemType "directory" | Out-Null;
-Copy-Item -Path "$templateLocation/css" -Destination "$PSScriptRoot/$folderName"
-Copy-Item -Path "$templateLocation/js" -Destination "$PSScriptRoot/$folderName"
-Copy-Item -Path "$templateLocation/index.html" -Destination "$PSScriptRoot/$folderName"
-
-Write-Host "Template files created under directory: $folderName";
+# Need to figure out signing...
+Import-Module ./GenerateTemplate -Scope Global
 
 if ($displayBoilerplateInstructions) {
     Write-Host ""
